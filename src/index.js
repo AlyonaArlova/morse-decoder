@@ -38,7 +38,15 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    const Splitter = /(?:[0-1\*]){10,10}/gi;
+    const Validator=/^((?:[0-1]){10,10}|(?:\*){10,10})+?$/;
+    //if (Validator.test(expr)) {throw {Message: "Invalid input format"}};
+    const symbols =expr.match(Splitter);
+    const mapping ={"10":".", "11":"-"};
+    return expr.match(Splitter)
+        .map(it => isNaN(temp = parseInt(it, 2)) ? it : temp.toString("2"))
+        .map(it => it.replaceAll(/(?:10|11|\*+)/gi, (match) => mapping[match] || " ")).map(it=>MORSE_TABLE[it]||" ").join("");
+
 }
 
 module.exports = {
