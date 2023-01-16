@@ -43,9 +43,11 @@ function decode(expr) {
     //if (Validator.test(expr)) {throw {Message: "Invalid input format"}};
     const symbols =expr.match(Splitter);
     const mapping ={"10":".", "11":"-"};
+
     return expr.match(Splitter)
         .map(it => isNaN(temp = parseInt(it, 2)) ? it : temp.toString("2"))
-        .map(it => it.replaceAll(/(?:10|11|\*+)/gi, (match) => mapping[match] || " ")).map(it=>MORSE_TABLE[it]||" ").join("");
+        .map(it=> new String(it))
+        .map(it => it.replace(/(?:10|11|\*+)/gi, (match) => mapping[match] || " ")).map(it=>MORSE_TABLE[it]||" ").join("");
 
 }
 
